@@ -1,6 +1,3 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+bin/
+src/seg/jUCMNav/tests/Z151importexport/actual/
+src/seg/jUCMNav/tests/Z151importexport/generatedSkeletonClasses/
