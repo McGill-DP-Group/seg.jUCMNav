@@ -656,8 +656,9 @@ public class ModelCreationFactory implements CreationFactory {
      */
     public static URNspec getNewURNspec() {
         // Will also create one if no GRL or UCM diagrams were selected (so at least one diagram is present)
-
-        return getNewURNspec(GeneralPreferencePage.getNewUCM() || !GeneralPreferencePage.getNewGRL(), GeneralPreferencePage.getNewGRL());
+        return getNewURNspec(GeneralPreferencePage.getNewUCM() || ((!GeneralPreferencePage.getNewGRL()) && (!GeneralPreferencePage.getNewFMD())),
+        		GeneralPreferencePage.getNewGRL(),
+        		GeneralPreferencePage.getNewFMD());
     }
 
     /**
@@ -668,10 +669,12 @@ public class ModelCreationFactory implements CreationFactory {
      *            should a blank UCM be created?
      * @param createGrl
      *            should a blank GRL graph be created?
+     * @param createFmd
+     *            should a balck FMD graph be created?
      * @return a new URN spec
      */
-    public static URNspec getNewURNspec(boolean createUcm, boolean createGrl) {
-
+    public static URNspec getNewURNspec(boolean createUcm, boolean createGrl, boolean createFmd) {
+    	    	
         URNspec result = null;
 
         // create the URN spec
@@ -711,6 +714,12 @@ public class ModelCreationFactory implements CreationFactory {
         // add a new UCM map to the UCMspec, if desired.
         if (createUcm) {
             urnspec.getUrndef().getSpecDiagrams().add(getNewObject(urnspec, UCMmap.class));
+        }
+        
+        // add a new FMD diagram to the FMDspec, if desired.
+        //TODO: currently it will create a grl graph instead of FMD, after implemented FDM, correct this one.
+        if (createFmd) {
+        	urnspec.getUrndef().getSpecDiagrams().add(getNewObject(urnspec, GRLGraph.class));
         }
 
         // Create a Strategy and Strategy Group

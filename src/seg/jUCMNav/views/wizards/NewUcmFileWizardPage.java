@@ -138,7 +138,7 @@ public class NewUcmFileWizardPage extends WizardPage {
             ucmButton.setSelection(true);
             doDiagramSelection(ucmButton);
         }
-        if (GeneralPreferencePage.getNewFDM()) {
+        if (GeneralPreferencePage.getNewFMD()) {
         	fmdButton.setSelection(true);
         	doDiagramSelection(fmdButton);
         }
@@ -159,8 +159,8 @@ public class NewUcmFileWizardPage extends WizardPage {
             else if (button.getText().equals("UCM")) { //$NON-NLS-1$
                 GeneralPreferencePage.setNewUCM(true);
             }
-            else if (button.getText().equals("FDM")) { //$NON-NLS-1$
-            	GeneralPreferencePage.setNewFDM(true);
+            else if (button.getText().equals("FMD")) { //$NON-NLS-1$
+            	GeneralPreferencePage.setNewFMD(true);
             }
         } else {
             if (button.getText().equals("GRL")) { //$NON-NLS-1$
@@ -169,8 +169,8 @@ public class NewUcmFileWizardPage extends WizardPage {
             else if (button.getText().equals("UCM")) { //$NON-NLS-1$
                 GeneralPreferencePage.setNewUCM(false);
             }
-            else if (button.getText().equals("FDM")) { //$NON-NLS-1$
-            	GeneralPreferencePage.setNewFDM(false);
+            else if (button.getText().equals("FMD")) { //$NON-NLS-1$
+            	GeneralPreferencePage.setNewFMD(false);
             }
         }
     }

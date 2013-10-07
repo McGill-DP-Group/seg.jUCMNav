@@ -45,7 +45,7 @@ public class GeneralPreferencePage extends FieldEditorPreferencePage implements 
     // Preferences for new .jucm files
     public static final String PREF_NEWGRL = "PREF_NEWGRL"; //$NON-NLS-1$
     public static final String PREF_NEWUCM = "PREF_NEWUCM"; //$NON-NLS-1$
-    public static final String PREF_NEWFDM = "PREF_NEWFDM"; //$NON-NLS-1$
+    public static final String PREF_NEWFMD = "PREF_NEWFMD"; //$NON-NLS-1$
     
     // To accelerate access to preferences...
     private static int antialising_pref = SWT.ON;
@@ -251,8 +251,8 @@ public class GeneralPreferencePage extends FieldEditorPreferencePage implements 
     /**
      * @return whether a new GRL diagram should be created in new .jucm file
      */
-    public static boolean getNewFDM() {
-    	return JUCMNavPlugin.getDefault().getPreferenceStore().getBoolean(PREF_NEWFDM);
+    public static boolean getNewFMD() {
+    	return JUCMNavPlugin.getDefault().getPreferenceStore().getBoolean(PREF_NEWFMD);
     }
 
     /**
@@ -272,8 +272,8 @@ public class GeneralPreferencePage extends FieldEditorPreferencePage implements 
     /**
      * Set whether a new feature model diagram should be created in a new .jucm file
      */
-    public static void setNewFDM(boolean value) {
-    	JUCMNavPlugin.getDefault().getPreferenceStore().setValue(PREF_NEWFDM, value);
+    public static void setNewFMD(boolean value) {
+    	JUCMNavPlugin.getDefault().getPreferenceStore().setValue(PREF_NEWFMD, value);
     }
 
     /**
