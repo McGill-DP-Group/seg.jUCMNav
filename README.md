@@ -1,19 +1,19 @@
 seg.jUCMNav
 ===========
 #Project Setup Steps
-1.$cd "your_eclipse_workspace"
+1.%cd "your_eclipse_workspace"
 
 
-2.$git clone git@github.com:headyin/seg.jUCMNav.git seg.jUCMNav
+2.%git clone git@github.com:<github username>/seg.jUCMNav.git seg.jUCMNav
 
   or if you haven't setup a ssh key you can use https with your github username and password
 
-  $git clone https://github.com/headyin/seg.jUCMNav.git seg.jUCMNav
+  %git clone https://github.com/<github username>/seg.jUCMNav.git seg.jUCMNav
 
   note: the project folder must be named "seg.jUCMNav", otherwise there will be some errors, even though the error affects nothing, it just makes you feel uncomfortable.
 
 
-3.cd seg.jUCMNav
+3.%cd seg.jUCMNav
 
 
 4.In your Eclipse:
