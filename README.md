@@ -9,7 +9,7 @@ Or if you haven't setup a ssh key you can use https with your github username an
 
     % git clone https://github.com/<github username>/seg.jUCMNav.git seg.jUCMNav
 
-note: the project folder must be named "seg.jUCMNav", otherwise there will be some errors, even though the error affects nothing, it just makes you feel uncomfortable.
+note: the project folder must be named "seg.jUCMNav", otherwise there will be some errors, even though the errors affect nothing, they just make you feel uncomfortable.
 
     % cd seg.jUCMNav
 
