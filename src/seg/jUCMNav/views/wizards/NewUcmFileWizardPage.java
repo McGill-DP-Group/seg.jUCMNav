@@ -124,6 +124,11 @@ public class NewUcmFileWizardPage extends WizardPage {
         grlButton.setImage(JUCMNavPlugin.getImage("icons/grl16.gif")); //$NON-NLS-1$
         grlButton.setText("GRL"); //$NON-NLS-1$
         grlButton.addListener(SWT.Selection, checkGroupListener);
+        
+        Button fmdButton = new Button(diagramComposite, SWT.CHECK);
+        fmdButton.setImage(JUCMNavPlugin.getImage("icons/fmd16.gif"));
+        fmdButton.setText("FMD");
+        fmdButton.addListener(SWT.Selection, checkGroupListener);
 
         if (GeneralPreferencePage.getNewGRL()) {
             grlButton.setSelection(true);
