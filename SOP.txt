@@ -1,0 +1,28 @@
+1. Code Review SOP:
+1.1 Please work on one task at a time, which relates to one task in the sprint.
+1.2 Regardless of the number of your local commits, please squash all your local commits to one big commit that relates to the story
+1.2.1 git rebase -i COMMIT_NAME~NUM_COMMITS. For example, if you want to squash the last four commits, your command will look at: git rebase -i HEAD~4, -i will enable you to interact with the console, where for each commit, if you write pick, you are picking this commit, else use squash to squash with previous commits.
+1.3 Once you have your commit ready, please push to the staging branch
+1.4 Create a new request, with your base at your own choice, preferably the last commit in remote branches
+1.5 In your pull request, please assign it to the person you want to help you review this. Please distribute the code review work evenly
+1.6 In your pull request description, please include the link to the task
+1.7 The reviewer should come in and comment on your code
+1.7.1 The requested review must submit his first review within one day after the pull request are created
+1.8 Once all code have been reviewed, and changed according to the comments, the reviewer is responsible to merge the current pull request into master branch
+
+2. Agile Management SOP
+1.1 Sprint planning meeting will be held each week on the Tuesday to identify tasks for the sprint
+1.1.1 One sprint is of one week length
+1.1.2 Sprint planning should be reviewed and discussed with the professor on the Wednesday meeting
+1.1.3 Mid-sprint review meeting shall be held each Friday to review the progress of each team member, and act as a bi-weekly scrum meeting
+1.2 Each team member should volunteer to take tasks and come up with estimates
+1.2.1 Each team member has 6 burndown points each sprint, each burndown points should require at least 6 hours of work per week
+1.2.2 Each team member must volunteer enough tasks for 6 burndown points per week, work exceeding 6 burndown points are allowed
+1.3 Each team member should update his task in a timely fashion
+1.4 The task can be marked done should the code is tested, reviewed, and merged into master
+1.5 Any unfinished task of the current sprint must be put into backlog and move to the next sprint at next sprint's sprint planning meeting
+1.5.1 Any unfinished backlog task shall not consume burndown points for any team member for the next sprint
+
+3. Development Rules:
+3.1 Team members should use the formatter on the jUCMNav website to regulates own writing style
+3.2 Unit tests are the bare minimum for testing, and is required for all methods and all functionalities
