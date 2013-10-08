@@ -3,11 +3,11 @@
 ## Project Setup Steps
     % cd "your_eclipse_workspace"
     
-    % git clone git@github.com:<github username>/seg.jUCMNav.git seg.jUCMNav
+    % git clone git@github.com:McGill-DP-Group/seg.jUCMNav.git seg.jUCMNav
 
 Or if you haven't setup a ssh key you can use https with your github username and password
 
-    % git clone https://github.com/<github username>/seg.jUCMNav.git seg.jUCMNav
+    % git clone git@github.com:McGill-DP-Group/seg.jUCMNav.git seg.jUCMNav
 
 note: the project folder must be named "seg.jUCMNav", otherwise there will be some errors, even though the errors affect nothing, they just make you feel uncomfortable.
 
