@@ -15,9 +15,13 @@ import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 
 import seg.jUCMNav.editors.palette.GrlPaletteRoot;
+import seg.jUCMNav.editors.palette.FmdPaletteRoot;
+
 import seg.jUCMNav.editparts.GrlConnectionOnBottomRootEditPart;
 import seg.jUCMNav.editparts.GrlGraphicalEditPartFactory;
 import urncore.IURNDiagram;
+import urncore.Metadata;
+import urncore.UrncoreFactory;
 
 /**
  * This is the main class for editing a single GRLGraph in our model.
@@ -28,6 +32,7 @@ import urncore.IURNDiagram;
 public class GrlEditor extends UrnEditor {
 
     private GRLGraph graphModel;
+    private Metadata metadata;
 
     /**
      * Create a new GrlEditor instance. This is called by the Workspace.
@@ -102,9 +107,27 @@ public class GrlEditor extends UrnEditor {
      * @return the default <code>PaletteRoot</code>
      */
     public PaletteRoot getPaletteRoot() {
+    	if (metadata == null) {
+        	metadata = UrncoreFactory.eINSTANCE.createMetadata();
+        	metadata.setName("Model Type"); //$NON-NLS-1$
+        	metadata.setValue("Feature Model"); //$NON-NLS-1$
+    	}
         if (null == paletteRoot) {
-            // create root
-            paletteRoot = new GrlPaletteRoot(parent);
+        	boolean isFeatureModel = false;
+        	for (int i = 0; i < parent.getModel().getMetadata().size(); i++)
+        	{
+        		Metadata m = (Metadata) parent.getModel().getMetadata().get(i);
+        		if ((m.getName().equals("Model Type")) && (m.getValue().equals("Feature Model"))) {
+        			isFeatureModel = true;
+        			break;
+        		}
+        		System.out.println(m.getName() + " " + m.getValue());
+        	}
+        	if (isFeatureModel) {
+                paletteRoot = new FmdPaletteRoot(parent);
+        	} else {
+                paletteRoot = new GrlPaletteRoot(parent);
+        	}
         }
         return paletteRoot;
     }

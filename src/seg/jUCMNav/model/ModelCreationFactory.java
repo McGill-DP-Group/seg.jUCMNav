@@ -670,7 +670,7 @@ public class ModelCreationFactory implements CreationFactory {
      * @param createGrl
      *            should a blank GRL graph be created?
      * @param createFmd
-     *            should a balck FMD graph be created?
+     *            should a blank FMD graph be created?
      * @return a new URN spec
      */
     public static URNspec getNewURNspec(boolean createUcm, boolean createGrl, boolean createFmd) {
@@ -720,6 +720,10 @@ public class ModelCreationFactory implements CreationFactory {
         //TODO: currently it will create a grl graph instead of FMD, after implemented FDM, correct this one.
         if (createFmd) {
         	urnspec.getUrndef().getSpecDiagrams().add(getNewObject(urnspec, GRLGraph.class));
+        	Metadata metadata = UrncoreFactory.eINSTANCE.createMetadata();
+        	metadata.setName("Model Type"); //$NON-NLS-1$
+        	metadata.setValue("Feature Model"); //$NON-NLS-1$
+        	urnspec.getMetadata().add(metadata);
         }
 
         // Create a Strategy and Strategy Group
