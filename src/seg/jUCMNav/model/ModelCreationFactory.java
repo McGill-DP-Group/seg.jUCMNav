@@ -723,6 +723,7 @@ public class ModelCreationFactory implements CreationFactory {
         	metadata.setName("Model Type"); //$NON-NLS-1$
         	metadata.setValue("Feature Model"); //$NON-NLS-1$
         	GRLGraph newFmdGraph = (GRLGraph) getNewObject(urnspec, GRLGraph.class);
+        	newFmdGraph.setName("featureModelGraph");
         	newFmdGraph.getMetadata().add(metadata);
         	urnspec.getUrndef().getSpecDiagrams().add(newFmdGraph);
         }
