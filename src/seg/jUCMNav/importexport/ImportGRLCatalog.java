@@ -42,7 +42,7 @@ import urncore.Metadata;
 /**
  * This class import a GRL catalog from an xml file
  * 
- * @author Jean-François Roy
+ * @author Jean-Fran?ois Roy
  */
 public class ImportGRLCatalog extends DefaultHandler implements IURNImport {
 

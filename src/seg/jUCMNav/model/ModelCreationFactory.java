@@ -719,11 +719,12 @@ public class ModelCreationFactory implements CreationFactory {
         // add a new FMD diagram to the FMDspec, if desired.
         //TODO: currently it will create a grl graph instead of FMD, after implemented FDM, correct this one.
         if (createFmd) {
-        	urnspec.getUrndef().getSpecDiagrams().add(getNewObject(urnspec, GRLGraph.class));
         	Metadata metadata = UrncoreFactory.eINSTANCE.createMetadata();
         	metadata.setName("Model Type"); //$NON-NLS-1$
         	metadata.setValue("Feature Model"); //$NON-NLS-1$
-        	urnspec.getMetadata().add(metadata);
+        	GRLGraph newFmdGraph = (GRLGraph) getNewObject(urnspec, GRLGraph.class);
+        	newFmdGraph.getMetadata().add(metadata);
+        	urnspec.getUrndef().getSpecDiagrams().add(newFmdGraph);
         }
 
         // Create a Strategy and Strategy Group

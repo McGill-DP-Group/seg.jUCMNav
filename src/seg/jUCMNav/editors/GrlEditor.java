@@ -32,7 +32,7 @@ import urncore.UrncoreFactory;
 public class GrlEditor extends UrnEditor {
 
     private GRLGraph graphModel;
-    private Metadata metadata;
+    boolean isFeatureModel;
 
     /**
      * Create a new GrlEditor instance. This is called by the Workspace.
@@ -107,22 +107,9 @@ public class GrlEditor extends UrnEditor {
      * @return the default <code>PaletteRoot</code>
      */
     public PaletteRoot getPaletteRoot() {
-    	if (metadata == null) {
-        	metadata = UrncoreFactory.eINSTANCE.createMetadata();
-        	metadata.setName("Model Type"); //$NON-NLS-1$
-        	metadata.setValue("Feature Model"); //$NON-NLS-1$
-    	}
+    	if (graphModel == null) return paletteRoot;
         if (null == paletteRoot) {
-        	boolean isFeatureModel = false;
-        	for (int i = 0; i < parent.getModel().getMetadata().size(); i++)
-        	{
-        		Metadata m = (Metadata) parent.getModel().getMetadata().get(i);
-        		if ((m.getName().equals("Model Type")) && (m.getValue().equals("Feature Model"))) {
-        			isFeatureModel = true;
-        			break;
-        		}
-        		System.out.println(m.getName() + " " + m.getValue());
-        	}
+
         	if (isFeatureModel) {
                 paletteRoot = new FmdPaletteRoot(parent);
         	} else {
@@ -153,6 +140,16 @@ public class GrlEditor extends UrnEditor {
      */
     public void setModel(IURNDiagram model) {
         graphModel = (GRLGraph) model;
+    	isFeatureModel = false;
+    	for (int i = 0; i < graphModel.getMetadata().size(); i++)
+    	{
+    		Metadata m = (Metadata) graphModel.getMetadata().get(i);
+    		if ((m.getName().equals("Model Type")) && (m.getValue().equals("Feature Model"))) {
+    			isFeatureModel = true;
+    			break;
+    		}
+    	}
+    	getEditDomain().setPaletteRoot(getPaletteRoot());
     }
 
     public void dispose() {
