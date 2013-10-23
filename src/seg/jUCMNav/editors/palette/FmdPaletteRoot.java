@@ -1,7 +1,7 @@
 package seg.jUCMNav.editors.palette;
 
+import grl.Contribution;
 import grl.Decomposition;
-import grl.Dependency;
 import grl.IntentionalElementRef;
 import grl.IntentionalElementType;
 
@@ -66,10 +66,21 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
         
         // Add a mandatory
         entry = new BaseConnectionCreationToolEntry(
-                Messages.getString("FmdPaletteRoot.mandatory"), Messages.getString("FmdPaletteRoot.createMandatory"), new ModelCreationFactory(getURNspec(), Dependency.class), //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("FmdPaletteRoot.mandatory"), Messages.getString("FmdPaletteRoot.createMandatory"), new ModelCreationFactory(getURNspec(), Contribution.class), //$NON-NLS-1$ //$NON-NLS-2$
                 JUCMNavPlugin.getImageDescriptor("icons/Mandatory16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
                         JUCMNavPlugin.class, "icons/Mandatory24.gif")); //$NON-NLS-1$
         linksDrawer.add(entry);
+        keyboardMapping.put("m", entry); //$NON-NLS-1$
+
+        
+        // Add a optional
+        entry = new BaseConnectionCreationToolEntry(
+                Messages.getString("FmdPaletteRoot.optional"), Messages.getString("FmdPaletteRoot.createOptional"), new ModelCreationFactory(getURNspec(), Contribution.class), //$NON-NLS-1$ //$NON-NLS-2$
+                JUCMNavPlugin.getImageDescriptor("icons/Optional16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
+                        JUCMNavPlugin.class, "icons/Optional24.gif")); //$NON-NLS-1$
+        linksDrawer.add(entry);
+        keyboardMapping.put("o", entry); //$NON-NLS-1$
+
         
         add(linksDrawer);
         
@@ -77,11 +88,11 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
         PaletteDrawer elementsDrawer = new PaletteDrawer(Messages.getString("FmdPaletteRoot.elements")); //$NON-NLS-1$
         
         entry = new URNElementCreationEntry(
-                Messages.getString("FmdPaletteRoot.task"), Messages.getString("FmdPaletteRoot.createTask"), IntentionalElementRef.class, new ModelCreationFactory(getURNspec(), IntentionalElementRef.class, //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("FmdPaletteRoot.feature"), Messages.getString("FmdPaletteRoot.createFeature"), IntentionalElementRef.class, new ModelCreationFactory(getURNspec(), IntentionalElementRef.class, //$NON-NLS-1$ //$NON-NLS-2$
                         IntentionalElementType.TASK), JUCMNavPlugin.getImageDescriptor("icons/Task16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
                         JUCMNavPlugin.class, "icons/Task24.gif")); //$NON-NLS-1$
         elementsDrawer.add(entry);
-        keyboardMapping.put("t", entry); //$NON-NLS-1$
+        keyboardMapping.put("f", entry); //$NON-NLS-1$
         
         add(elementsDrawer);
     }

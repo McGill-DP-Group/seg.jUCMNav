@@ -138,6 +138,13 @@ public class ModelCreationFactory implements CreationFactory {
     public static final String URNSPEC_VERSION = "0.925"; //$NON-NLS-1$
 
     private Object preDefinedDefinition;
+    
+    private static Metadata featureModelGraphMetadata;
+    private static Metadata featureModelFeatureMetadata;
+    private static Metadata featureModelDecompositionMetadata;
+    private static Metadata featureModelMandatoryMetadata;
+    private static Metadata featureModelOptionalMetadata;
+
 
     /**
      * @param urn
@@ -213,6 +220,33 @@ public class ModelCreationFactory implements CreationFactory {
      */
     public Object getNewObject() {
         return getNewObject(urn, targetClass, type, preDefinedDefinition);
+    }
+    
+    public static Metadata getFeatureModelGraphMetadata() {
+    	if (featureModelGraphMetadata == null) {
+    		featureModelGraphMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    		featureModelGraphMetadata.setName("ModelType"); //$NON-NLS-1$
+    		featureModelGraphMetadata.setValue("FeatureModel"); //$NON-NLS-1$
+    	}
+    	return featureModelGraphMetadata;
+    }
+    
+    public static Metadata getFeatureModelFeatureMetadata() {
+    	if (featureModelFeatureMetadata == null) {
+    		featureModelFeatureMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    		featureModelFeatureMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    		featureModelFeatureMetadata.setValue("Feature"); //$NON-NLS-1$
+    	}
+    	return featureModelFeatureMetadata;
+    }
+    
+    public static Metadata getFeatureModelDecompositionMetadata() {
+    	if (featureModelDecompositionMetadata == null) {
+    		featureModelDecompositionMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    		featureModelDecompositionMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    		featureModelDecompositionMetadata.setValue("Decoposition"); //$NON-NLS-1$
+    	}
+    	return featureModelFeatureMetadata;
     }
 
     /**
@@ -719,12 +753,9 @@ public class ModelCreationFactory implements CreationFactory {
         // add a new FMD diagram to the FMDspec, if desired.
         //TODO: currently it will create a grl graph instead of FMD, after implemented FDM, correct this one.
         if (createFmd) {
-        	Metadata metadata = UrncoreFactory.eINSTANCE.createMetadata();
-        	metadata.setName("Model Type"); //$NON-NLS-1$
-        	metadata.setValue("Feature Model"); //$NON-NLS-1$
         	GRLGraph newFmdGraph = (GRLGraph) getNewObject(urnspec, GRLGraph.class);
         	newFmdGraph.setName("featureModelGraph");
-        	newFmdGraph.getMetadata().add(metadata);
+        	newFmdGraph.getMetadata().add(getFeatureModelGraphMetadata());
         	urnspec.getUrndef().getSpecDiagrams().add(newFmdGraph);
         }
 

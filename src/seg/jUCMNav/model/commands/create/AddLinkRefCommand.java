@@ -4,7 +4,9 @@
 package seg.jUCMNav.model.commands.create;
 
 import grl.Contribution;
+import grl.Decomposition;
 import grl.ElementLink;
+import grl.GRLGraph;
 import grl.IntentionalElementRef;
 import grl.LinkRef;
 
@@ -15,6 +17,7 @@ import seg.jUCMNav.model.ModelCreationFactory;
 import seg.jUCMNav.model.commands.JUCMNavCommand;
 import urncore.ConnectionLabel;
 import urncore.IURNDiagram;
+import urncore.Metadata;
 
 /**
  * Command to create LinkRef in a GRLDiagram
@@ -57,11 +60,30 @@ public class AddLinkRefCommand extends Command implements JUCMNavCommand {
      * @see org.eclipse.gef.commands.Command#execute()
      */
     public void execute() {
+        boolean isFeatureModel = false;
+        if (graph instanceof GRLGraph) {
+            GRLGraph grlGraph = (GRLGraph) graph;
+        	for (int i = 0; i < grlGraph.getMetadata().size(); i++)
+        	{
+        		Metadata m = (Metadata) grlGraph.getMetadata().get(i);
+        		Metadata fmdgraphMetadata = ModelCreationFactory.getFeatureModelGraphMetadata();
+        		if ((m.getName().equals(fmdgraphMetadata.getName())) && (m.getValue().equals(fmdgraphMetadata.getValue()))) {
+        			isFeatureModel = true;
+        			break;
+        		}
+        	}
+        }
+
         linkref = (LinkRef) ModelCreationFactory.getNewObject(graph.getUrndefinition().getUrnspec(), LinkRef.class);
         if(link instanceof Contribution) {
             labelTarget = (ConnectionLabel)ModelCreationFactory.getNewObject(graph.getUrndefinition().getUrnspec(), ConnectionLabel.class);
             labelTarget.setDeltaX(30);
             labelTarget.setDeltaY(-30);
+        }
+        
+        if ((link instanceof Decomposition) && (isFeatureModel)) {
+        	System.out.println("adding decomposition");
+        	link.getMetadata().add(ModelCreationFactory.getFeatureModelDecompositionMetadata());
         }
         
         redo();

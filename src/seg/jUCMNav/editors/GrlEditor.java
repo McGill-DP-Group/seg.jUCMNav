@@ -19,6 +19,7 @@ import seg.jUCMNav.editors.palette.FmdPaletteRoot;
 
 import seg.jUCMNav.editparts.GrlConnectionOnBottomRootEditPart;
 import seg.jUCMNav.editparts.GrlGraphicalEditPartFactory;
+import seg.jUCMNav.model.ModelCreationFactory;
 import urncore.IURNDiagram;
 import urncore.Metadata;
 import urncore.UrncoreFactory;
@@ -144,7 +145,8 @@ public class GrlEditor extends UrnEditor {
     	for (int i = 0; i < graphModel.getMetadata().size(); i++)
     	{
     		Metadata m = (Metadata) graphModel.getMetadata().get(i);
-    		if ((m.getName().equals("Model Type")) && (m.getValue().equals("Feature Model"))) {
+    		Metadata fmdgraphMetadata = ModelCreationFactory.getFeatureModelGraphMetadata();
+    		if ((m.getName().equals(fmdgraphMetadata.getName())) && (m.getValue().equals(fmdgraphMetadata.getValue()))) {
     			isFeatureModel = true;
     			break;
     		}
