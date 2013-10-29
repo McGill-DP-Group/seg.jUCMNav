@@ -141,16 +141,8 @@ public class GrlEditor extends UrnEditor {
      */
     public void setModel(IURNDiagram model) {
         graphModel = (GRLGraph) model;
-    	isFeatureModel = false;
-    	for (int i = 0; i < graphModel.getMetadata().size(); i++)
-    	{
-    		Metadata m = (Metadata) graphModel.getMetadata().get(i);
-    		Metadata fmdgraphMetadata = ModelCreationFactory.getFeatureModelGraphMetadata();
-    		if ((m.getName().equals(fmdgraphMetadata.getName())) && (m.getValue().equals(fmdgraphMetadata.getValue()))) {
-    			isFeatureModel = true;
-    			break;
-    		}
-    	}
+    	isFeatureModel = ModelCreationFactory.containsMetadata(graphModel.getMetadata(),
+    			ModelCreationFactory.getFeatureModelGraphMetadata());
     	getEditDomain().setPaletteRoot(getPaletteRoot());
     }
 

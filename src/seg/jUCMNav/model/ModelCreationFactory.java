@@ -41,6 +41,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.StringConverter;
 
@@ -136,14 +137,13 @@ public class ModelCreationFactory implements CreationFactory {
     public static final int DEFAULT_GRL_COMPONENT_HEIGHT = 200;
     public static final int DEFAULT_GRL_COMPONENT_WIDTH = 200;
     public static final String URNSPEC_VERSION = "0.925"; //$NON-NLS-1$
+    
+    //the type used to distinguish mandatory or optional for contribution link
+    public static final int FEATURE_MODEL_MANDATORY_TYPE = -1;
+    public static final int FEATURE_MODEL_OPTIONAL_TYPE = -2;
+    public static final int FEATURE_MODEL_DECOMPOSTION_TYPE = -3;
 
     private Object preDefinedDefinition;
-    
-    private static Metadata featureModelGraphMetadata;
-    private static Metadata featureModelFeatureMetadata;
-    private static Metadata featureModelDecompositionMetadata;
-    private static Metadata featureModelMandatoryMetadata;
-    private static Metadata featureModelOptionalMetadata;
 
 
     /**
@@ -222,31 +222,78 @@ public class ModelCreationFactory implements CreationFactory {
         return getNewObject(urn, targetClass, type, preDefinedDefinition);
     }
     
+    /**
+     * @return the Metadata tag of feature model graph 
+     */
     public static Metadata getFeatureModelGraphMetadata() {
-    	if (featureModelGraphMetadata == null) {
-    		featureModelGraphMetadata = UrncoreFactory.eINSTANCE.createMetadata();
-    		featureModelGraphMetadata.setName("ModelType"); //$NON-NLS-1$
-    		featureModelGraphMetadata.setValue("FeatureModel"); //$NON-NLS-1$
-    	}
+    	Metadata featureModelGraphMetadata;
+    	featureModelGraphMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    	featureModelGraphMetadata.setName("ModelType"); //$NON-NLS-1$
+    	featureModelGraphMetadata.setValue("FeatureModel"); //$NON-NLS-1$
     	return featureModelGraphMetadata;
     }
     
+    /**
+     * @return the Metadata tag of feature model feature element 
+     */
     public static Metadata getFeatureModelFeatureMetadata() {
-    	if (featureModelFeatureMetadata == null) {
-    		featureModelFeatureMetadata = UrncoreFactory.eINSTANCE.createMetadata();
-    		featureModelFeatureMetadata.setName("FeatureModel"); //$NON-NLS-1$
-    		featureModelFeatureMetadata.setValue("Feature"); //$NON-NLS-1$
-    	}
-    	return featureModelFeatureMetadata;
+    	Metadata featureModelFeatureElementMetadata;
+    	featureModelFeatureElementMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    	featureModelFeatureElementMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    	featureModelFeatureElementMetadata.setValue("Feature"); //$NON-NLS-1$
+    	return featureModelFeatureElementMetadata;
     }
     
-    public static Metadata getFeatureModelDecompositionMetadata() {
-    	if (featureModelDecompositionMetadata == null) {
-    		featureModelDecompositionMetadata = UrncoreFactory.eINSTANCE.createMetadata();
-    		featureModelDecompositionMetadata.setName("FeatureModel"); //$NON-NLS-1$
-    		featureModelDecompositionMetadata.setValue("Decoposition"); //$NON-NLS-1$
+    /**
+     * @return the Metadata tag of feature model decopositon link
+     */
+    public static Metadata getFeatureModelDecompositionLinkMetadata() {
+    	Metadata featureModelDecompositionLinkMetadata;
+    	featureModelDecompositionLinkMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    	featureModelDecompositionLinkMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    	featureModelDecompositionLinkMetadata.setValue("Decomposition"); //$NON-NLS-1$
+    	return featureModelDecompositionLinkMetadata;
+    }
+    
+    /**
+     * @return the Metadata tag of feature model mandatory link
+     */
+    public static Metadata getFeatureModelMandatoryLinkMetadata() {
+    	Metadata featureModelMandatoryLinkMetadata;
+    	featureModelMandatoryLinkMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    	featureModelMandatoryLinkMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    	featureModelMandatoryLinkMetadata.setValue("Mandatory"); //$NON-NLS-1$
+    	return featureModelMandatoryLinkMetadata;
+    }
+    
+    /**
+     * @return the Metadata tag of feature model optional link
+     */
+    public static Metadata getFeatureModelOptionalLinkMetadata() {
+    	Metadata featureModelOptionalLinkMetadata;
+    	featureModelOptionalLinkMetadata = UrncoreFactory.eINSTANCE.createMetadata();
+    	featureModelOptionalLinkMetadata.setName("FeatureModel"); //$NON-NLS-1$
+    	featureModelOptionalLinkMetadata.setValue("Optional"); //$NON-NLS-1$
+    	return featureModelOptionalLinkMetadata;
+    }
+    
+    /**
+     * check if the metadata Elist contains a specific metadata
+     * @param metadataList the metadata list
+     * @param metadata the specific metadata
+     * @return true if contains, otherwise false
+     */
+    public static boolean containsMetadata(EList metadataList, Metadata metadata) {
+    	boolean result = false;
+    	for (int i = 0; i < metadataList.size(); i++)
+    	{
+    		Metadata m = (Metadata) metadataList.get(i);
+    		if ((m.getName().equals(metadata.getName())) && (m.getValue().equals(metadata.getValue()))) {
+    			result = true;
+    			break;
+    		}
     	}
-    	return featureModelFeatureMetadata;
+    	return result;
     }
 
     /**
@@ -371,9 +418,21 @@ public class ModelCreationFactory implements CreationFactory {
             } else if (targetClass.equals(Connect.class)) {
                 result = mapfactory.createConnect();
             } else if (targetClass.equals(Decomposition.class)) {
-                result = grlfactory.createDecomposition();
+            	Decomposition decomposition = grlfactory.createDecomposition();
+            	if (type == ModelCreationFactory.FEATURE_MODEL_DECOMPOSTION_TYPE) {
+            		decomposition.getMetadata().add(ModelCreationFactory.getFeatureModelDecompositionLinkMetadata());
+            	}
+                result = decomposition;
             } else if (targetClass.equals(Contribution.class)) {
-                result = grlfactory.createContribution();
+            	Contribution contribution = grlfactory.createContribution();
+            	//add metadata if the contribution link is created in feature model 
+            	//as mandatory or optional link
+            	if (type == ModelCreationFactory.FEATURE_MODEL_MANDATORY_TYPE) {
+            		contribution.getMetadata().add(ModelCreationFactory.getFeatureModelMandatoryLinkMetadata());
+            	} else if (type == ModelCreationFactory.FEATURE_MODEL_OPTIONAL_TYPE) {
+            		contribution.getMetadata().add(ModelCreationFactory.getFeatureModelOptionalLinkMetadata());
+            	}
+            	result = contribution;
             } else if (targetClass.equals(Dependency.class)) {
                 result = grlfactory.createDependency();
             } else if (targetClass.equals(LinkRef.class)) {

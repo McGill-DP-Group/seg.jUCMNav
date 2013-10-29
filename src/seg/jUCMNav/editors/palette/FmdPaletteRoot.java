@@ -58,7 +58,8 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
 
         // Add a decomposition
         entry = new BaseConnectionCreationToolEntry(
-                Messages.getString("FmdPaletteRoot.decomposition"), Messages.getString("FmdPaletteRoot.createDecomposition"), new ModelCreationFactory(getURNspec(), Decomposition.class), //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("FmdPaletteRoot.decomposition"), Messages.getString("FmdPaletteRoot.createDecomposition"), //$NON-NLS-1$ //$NON-NLS-2$
+                new ModelCreationFactory(getURNspec(), Decomposition.class, ModelCreationFactory.FEATURE_MODEL_DECOMPOSTION_TYPE),
                 JUCMNavPlugin.getImageDescriptor("icons/Decomposition16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
                         JUCMNavPlugin.class, "icons/Decomposition24.gif")); //$NON-NLS-1$
         linksDrawer.add(entry);
@@ -66,7 +67,8 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
         
         // Add a mandatory
         entry = new BaseConnectionCreationToolEntry(
-                Messages.getString("FmdPaletteRoot.mandatory"), Messages.getString("FmdPaletteRoot.createMandatory"), new ModelCreationFactory(getURNspec(), Contribution.class), //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("FmdPaletteRoot.mandatory"), Messages.getString("FmdPaletteRoot.createMandatory"), //$NON-NLS-1$ //$NON-NLS-2$
+                new ModelCreationFactory(getURNspec(), Contribution.class, ModelCreationFactory.FEATURE_MODEL_MANDATORY_TYPE),
                 JUCMNavPlugin.getImageDescriptor("icons/Mandatory16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
                         JUCMNavPlugin.class, "icons/Mandatory24.gif")); //$NON-NLS-1$
         linksDrawer.add(entry);
@@ -75,7 +77,8 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
         
         // Add a optional
         entry = new BaseConnectionCreationToolEntry(
-                Messages.getString("FmdPaletteRoot.optional"), Messages.getString("FmdPaletteRoot.createOptional"), new ModelCreationFactory(getURNspec(), Contribution.class), //$NON-NLS-1$ //$NON-NLS-2$
+                Messages.getString("FmdPaletteRoot.optional"), Messages.getString("FmdPaletteRoot.createOptional"), //$NON-NLS-1$ //$NON-NLS-2$
+                new ModelCreationFactory(getURNspec(), Contribution.class, ModelCreationFactory.FEATURE_MODEL_OPTIONAL_TYPE),
                 JUCMNavPlugin.getImageDescriptor("icons/Optional16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
                         JUCMNavPlugin.class, "icons/Optional24.gif")); //$NON-NLS-1$
         linksDrawer.add(entry);
@@ -88,9 +91,10 @@ public class FmdPaletteRoot extends UcmPaletteRoot {
         PaletteDrawer elementsDrawer = new PaletteDrawer(Messages.getString("FmdPaletteRoot.elements")); //$NON-NLS-1$
         
         entry = new URNElementCreationEntry(
-                Messages.getString("FmdPaletteRoot.feature"), Messages.getString("FmdPaletteRoot.createFeature"), IntentionalElementRef.class, new ModelCreationFactory(getURNspec(), IntentionalElementRef.class, //$NON-NLS-1$ //$NON-NLS-2$
-                        IntentionalElementType.TASK), JUCMNavPlugin.getImageDescriptor("icons/Task16.gif"), ImageDescriptor.createFromFile( //$NON-NLS-1$
-                        JUCMNavPlugin.class, "icons/Task24.gif")); //$NON-NLS-1$
+                Messages.getString("FmdPaletteRoot.feature"), Messages.getString("FmdPaletteRoot.createFeature"), IntentionalElementRef.class,  //$NON-NLS-1$ //$NON-NLS-2$
+                new ModelCreationFactory(getURNspec(), IntentionalElementRef.class, IntentionalElementType.TASK),
+                JUCMNavPlugin.getImageDescriptor("icons/Task16.gif"), //$NON-NLS-1$
+                ImageDescriptor.createFromFile(JUCMNavPlugin.class, "icons/Task24.gif")); //$NON-NLS-1$
         elementsDrawer.add(entry);
         keyboardMapping.put("f", entry); //$NON-NLS-1$
         

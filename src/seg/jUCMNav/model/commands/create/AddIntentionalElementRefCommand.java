@@ -52,16 +52,8 @@ public class AddIntentionalElementRefCommand extends Command implements JUCMNavC
 
         existingDef = elementRef.getDef();
         bDefAlreadyExists = graph.getUrndefinition().getUrnspec().getGrlspec().getIntElements().contains(existingDef);
-        boolean isFeatureModel = false;
-    	for (int i = 0; i < graph.getMetadata().size(); i++)
-    	{
-    		Metadata m = (Metadata) graph.getMetadata().get(i);
-    		Metadata fmdgraphMetadata = ModelCreationFactory.getFeatureModelGraphMetadata();
-    		if ((m.getName().equals(fmdgraphMetadata.getName())) && (m.getValue().equals(fmdgraphMetadata.getValue()))) {
-    			isFeatureModel = true;
-    			break;
-    		}
-    	}
+        boolean isFeatureModel = ModelCreationFactory.containsMetadata(graph.getMetadata(),
+        		ModelCreationFactory.getFeatureModelGraphMetadata());
     	if (isFeatureModel) {
     		System.out.println("Adding feature for feature model");
     		existingDef.getMetadata().add(ModelCreationFactory.getFeatureModelFeatureMetadata());
